@@ -1,138 +1,266 @@
+
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:HotelAvalonia.ViewModels"
         x:Class="HotelAvalonia.NewBookingWindow"
+        x:DataType="vm:NewBookingViewModel"
         Title="Create New Booking"
-        Width="760" Height="720" MinWidth="700" MinHeight="650"
+        Width="760" Height="720"
+        MinWidth="700" MinHeight="650"
         WindowStartupLocation="CenterOwner"
         CanResize="False"
         Background="#F8FAFC">
-  <Grid RowDefinitions="Auto,*,Auto">
-    <Border Grid.Row="0" Background="White" BorderBrush="#E2E8F0" BorderThickness="0,0,0,1" Padding="26,22">
-      <Grid ColumnDefinitions="*,Auto">
-        <StackPanel Spacing="5">
-          <TextBlock Text="Create new booking" FontSize="22" FontWeight="Bold" Foreground="#0F172A"/>
-          <TextBlock Text="Enter guest and stay details to create a reservation."
-                     Foreground="#64748B" FontSize="12"/>
-        </StackPanel>
-        <Border Grid.Column="1" Width="42" Height="42" CornerRadius="10" Background="#DBEAFE">
-          <TextBlock Text="▤" Foreground="#1D4ED8" FontSize="21"
-                     HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+    <Grid RowDefinitions="Auto,*,Auto">
+
+        <!-- Header -->
+        <Border Grid.Row="0"
+                Background="White"
+                BorderBrush="#E2E8F0"
+                BorderThickness="0,0,0,1"
+                Padding="26,22">
+            <Grid ColumnDefinitions="*,Auto">
+                <StackPanel Spacing="5">
+                    <TextBlock Text="Create new booking"
+                               FontSize="22"
+                               FontWeight="Bold"
+                               Foreground="#0F172A"/>
+                    <TextBlock Text="Enter guest and stay details to create a reservation."
+                               Foreground="#64748B"
+                               FontSize="12"/>
+                </StackPanel>
+
+                <Border Grid.Column="1"
+                        Width="42" Height="42"
+                        CornerRadius="10"
+                        Background="#DBEAFE">
+                    <TextBlock Text="▤"
+                               Foreground="#1D4ED8"
+                               FontSize="21"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"/>
+                </Border>
+            </Grid>
         </Border>
-      </Grid>
-    </Border>
 
-    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
-      <StackPanel Margin="26,22" Spacing="20">
-        <StackPanel Spacing="12">
-          <TextBlock Text="GUEST INFORMATION" FontSize="11" FontWeight="Bold" Foreground="#64748B"/>
-          <Grid ColumnDefinitions="*,*" ColumnSpacing="16">
-            <StackPanel Spacing="7">
-              <TextBlock Text="Guest" FontSize="12" FontWeight="SemiBold" Foreground="#334155"/>
-              <ComboBox x:Name="GuestCombo" SelectedIndex="0" Height="40">
-                <ComboBoxItem Content="Nguyen Minh Anh"/>
-                <ComboBoxItem Content="Tran Quoc Bao"/>
-                <ComboBoxItem Content="Le Thu Ha"/>
-                <ComboBoxItem Content="Pham Duc Long"/>
-                <ComboBoxItem Content="Vo Ngoc Linh"/>
-                <ComboBoxItem Content="New guest (demo)"/>
-              </ComboBox>
-            </StackPanel>
-            <StackPanel Grid.Column="1" Spacing="7">
-              <TextBlock Text="Number of guests" FontSize="12" FontWeight="SemiBold" Foreground="#334155"/>
-              <NumericUpDown x:Name="GuestCountInput" Minimum="1" Maximum="6" Value="2" Height="40"/>
-            </StackPanel>
-          </Grid>
-        </StackPanel>
+        <!-- Booking form -->
+        <ScrollViewer Grid.Row="1"
+                      VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="26,22" Spacing="20">
 
-        <Border Height="1" Background="#E2E8F0"/>
+                <!-- Guest information -->
+                <StackPanel Spacing="12">
+                    <TextBlock Text="GUEST INFORMATION"
+                               FontSize="11"
+                               FontWeight="Bold"
+                               Foreground="#64748B"/>
 
-        <StackPanel Spacing="12">
-          <TextBlock Text="ROOM SELECTION" FontSize="11" FontWeight="Bold" Foreground="#64748B"/>
-          <Grid ColumnDefinitions="*,*" ColumnSpacing="16">
-            <StackPanel Spacing="7">
-              <TextBlock Text="Room type" FontSize="12" FontWeight="SemiBold" Foreground="#334155"/>
-              <ComboBox x:Name="RoomTypeCombo" SelectedIndex="0" Height="40"
-                        SelectionChanged="RoomSelection_Changed">
-                <ComboBoxItem Content="Standard"/>
-                <ComboBoxItem Content="Deluxe"/>
-                <ComboBoxItem Content="Suite"/>
-              </ComboBox>
-            </StackPanel>
-            <StackPanel Grid.Column="1" Spacing="7">
-              <TextBlock Text="Room number" FontSize="12" FontWeight="SemiBold" Foreground="#334155"/>
-              <ComboBox x:Name="RoomNumberCombo" SelectedIndex="0" Height="40">
-                <ComboBoxItem Content="105"/>
-                <ComboBoxItem Content="108"/>
-                <ComboBoxItem Content="302"/>
-                <ComboBoxItem Content="305"/>
-                <ComboBoxItem Content="501"/>
-                <ComboBoxItem Content="502"/>
-              </ComboBox>
-            </StackPanel>
-          </Grid>
-          <Border Background="#EFF6FF" CornerRadius="8" Padding="13">
-            <Grid ColumnDefinitions="*,Auto">
-              <StackPanel Spacing="3">
-                <TextBlock Text="Nightly rate" Foreground="#64748B" FontSize="11"/>
-                <TextBlock x:Name="NightlyRateText" Text="₫800,000 / night" Foreground="#1D4ED8"
-                           FontSize="15" FontWeight="Bold"/>
-              </StackPanel>
-              <TextBlock Grid.Column="1" Text="Mock availability" Foreground="#1D4ED8"
-                         FontSize="11" VerticalAlignment="Center"/>
-            </Grid>
-          </Border>
-        </StackPanel>
+                    <Grid ColumnDefinitions="*,*"
+                          ColumnSpacing="16">
+                        <StackPanel Spacing="7">
+                            <TextBlock Text="Guest"
+                                       FontSize="12"
+                                       FontWeight="SemiBold"
+                                       Foreground="#334155"/>
 
-        <Border Height="1" Background="#E2E8F0"/>
+                            <ComboBox
+                                ItemsSource="{Binding Guests}"
+                                SelectedItem="{Binding SelectedGuest, Mode=TwoWay}"
+                                Height="40"/>
+                        </StackPanel>
 
-        <StackPanel Spacing="12">
-          <TextBlock Text="STAY DETAILS" FontSize="11" FontWeight="Bold" Foreground="#64748B"/>
-          <Grid ColumnDefinitions="*,*" ColumnSpacing="16">
-            <StackPanel Spacing="7">
-              <TextBlock Text="Check-in" FontSize="12" FontWeight="SemiBold" Foreground="#334155"/>
-              <DatePicker x:Name="CheckInPicker" Height="40" SelectedDateChanged="DatePicker_Changed"/>
-            </StackPanel>
-            <StackPanel Grid.Column="1" Spacing="7">
-              <TextBlock Text="Check-out" FontSize="12" FontWeight="SemiBold" Foreground="#334155"/>
-              <DatePicker x:Name="CheckOutPicker" Height="40" SelectedDateChanged="DatePicker_Changed"/>
-            </StackPanel>
-          </Grid>
-        </StackPanel>
+                        <StackPanel Grid.Column="1" Spacing="7">
+                            <TextBlock Text="Number of guests"
+                                       FontSize="12"
+                                       FontWeight="SemiBold"
+                                       Foreground="#334155"/>
 
-        <Border Background="White" BorderBrush="#E2E8F0" BorderThickness="1" CornerRadius="10" Padding="16">
-          <StackPanel Spacing="12">
-            <TextBlock Text="PRICE SUMMARY" FontSize="11" FontWeight="Bold" Foreground="#64748B"/>
-            <Grid ColumnDefinitions="*,Auto">
-              <TextBlock Text="Number of nights" Foreground="#64748B" FontSize="12"/>
-              <TextBlock x:Name="NightsText" Grid.Column="1" Text="2 nights" Foreground="#334155" FontSize="12"/>
-            </Grid>
-            <Grid ColumnDefinitions="*,Auto">
-              <TextBlock Text="Room subtotal" Foreground="#64748B" FontSize="12"/>
-              <TextBlock x:Name="SubtotalText" Grid.Column="1" Text="₫1,600,000" Foreground="#334155" FontSize="12"/>
-            </Grid>
-            <Border Height="1" Background="#E2E8F0"/>
-            <Grid ColumnDefinitions="*,Auto">
-              <TextBlock Text="Estimated total" Foreground="#0F172A" FontSize="14" FontWeight="SemiBold"/>
-              <TextBlock x:Name="TotalText" Grid.Column="1" Text="₫1,600,000" Foreground="#1D4ED8"
-                         FontSize="19" FontWeight="Bold"/>
-            </Grid>
-          </StackPanel>
+                            <NumericUpDown x:Name="GuestCountInput"
+                                           Minimum="1"
+                                           Maximum="6"
+                                           Value="{Binding GuestCount, Mode=TwoWay}"
+                                           Height="40"/>
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+
+                <Border Height="1" Background="#E2E8F0"/>
+
+                <!-- Room selection -->
+                <StackPanel Spacing="12">
+                    <TextBlock Text="ROOM SELECTION"
+                               FontSize="11"
+                               FontWeight="Bold"
+                               Foreground="#64748B"/>
+
+                    <Grid ColumnDefinitions="*,*"
+                          ColumnSpacing="16">
+                        <StackPanel Spacing="7">
+                            <TextBlock Text="Room type"
+                                       FontSize="12"
+                                       FontWeight="SemiBold"
+                                       Foreground="#334155"/>
+
+                            <ComboBox ItemsSource="{Binding RoomTypes}"
+                                      SelectedItem="{Binding SelectedRoomType, Mode=TwoWay}"
+                                      Height="40"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1" Spacing="7">
+                            <TextBlock Text="Room number"
+                                       FontSize="12"
+                                       FontWeight="SemiBold"
+                                       Foreground="#334155"/>
+
+                            <ComboBox
+                                ItemsSource="{Binding RoomNumbers}"
+                                SelectedItem="{Binding SelectedRoomNumber, Mode=TwoWay}"
+                                Height="40"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <Border Background="#EFF6FF"
+                            CornerRadius="8"
+                            Padding="13">
+                        <Grid ColumnDefinitions="*,Auto">
+                            <StackPanel Spacing="3">
+                                <TextBlock Text="Nightly rate"
+                                           Foreground="#64748B"
+                                           FontSize="11"/>
+                                <TextBlock Text="{Binding NightlyRateText}"
+                                           Foreground="#1D4ED8"
+                                           FontSize="15"
+                                           FontWeight="Bold"/>
+                            </StackPanel>
+
+                            <TextBlock Grid.Column="1"
+                                       Text="Mock availability"
+                                       Foreground="#1D4ED8"
+                                       FontSize="11"
+                                       VerticalAlignment="Center"/>
+                        </Grid>
+                    </Border>
+                </StackPanel>
+
+                <Border Height="1" Background="#E2E8F0"/>
+
+                <!-- Stay details -->
+                <StackPanel Spacing="12">
+                    <TextBlock Text="STAY DETAILS"
+                               FontSize="11"
+                               FontWeight="Bold"
+                               Foreground="#64748B"/>
+
+                    <Grid ColumnDefinitions="*,*"
+                          ColumnSpacing="16">
+                        <StackPanel Spacing="7">
+                            <TextBlock Text="Check-in"
+                                       FontSize="12"
+                                       FontWeight="SemiBold"
+                                       Foreground="#334155"/>
+
+                            <DatePicker SelectedDate="{Binding CheckInDate, Mode=TwoWay}"
+                                        Height="40"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1" Spacing="7">
+                            <TextBlock Text="Check-out"
+                                       FontSize="12"
+                                       FontWeight="SemiBold"
+                                       Foreground="#334155"/>
+
+                            <DatePicker SelectedDate="{Binding CheckOutDate, Mode=TwoWay}"
+                                        Height="40"/>
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+
+                <!-- Price summary -->
+                <Border Background="White"
+                        BorderBrush="#E2E8F0"
+                        BorderThickness="1"
+                        CornerRadius="10"
+                        Padding="16">
+                    <StackPanel Spacing="12">
+                        <TextBlock Text="PRICE SUMMARY"
+                                   FontSize="11"
+                                   FontWeight="Bold"
+                                   Foreground="#64748B"/>
+
+                        <Grid ColumnDefinitions="*,Auto">
+                            <TextBlock Text="Number of nights"
+                                       Foreground="#64748B"
+                                       FontSize="12"/>
+                            <TextBlock Grid.Column="1"
+                                       Text="{Binding Nights}"
+                                       Foreground="#334155"
+                                       FontSize="12"/>
+                        </Grid>
+
+                        <Grid ColumnDefinitions="*,Auto">
+                            <TextBlock Text="Room subtotal"
+                                       Foreground="#64748B"
+                                       FontSize="12"/>
+                            <TextBlock Grid.Column="1"
+                                       Text="{Binding TotalPriceText}"
+                                       Foreground="#334155"
+                                       FontSize="12"/>
+                        </Grid>
+
+                        <Border Height="1" Background="#E2E8F0"/>
+
+                        <Grid ColumnDefinitions="*,Auto">
+                            <TextBlock Text="Estimated total"
+                                       Foreground="#0F172A"
+                                       FontSize="14"
+                                       FontWeight="SemiBold"/>
+                            <TextBlock Grid.Column="1"
+                                       Text="{Binding TotalPriceText}"
+                                       Foreground="#1D4ED8"
+                                       FontSize="19"
+                                       FontWeight="Bold"/>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <TextBlock Text="{Binding ValidationMessage}"
+                           Foreground="#B91C1C"
+                           FontSize="12"
+                           TextWrapping="Wrap"
+                           IsVisible="{Binding HasValidationMessage}"/>
+
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Footer -->
+        <Border Grid.Row="2"
+                Background="White"
+                BorderBrush="#E2E8F0"
+                BorderThickness="0,1,0,0"
+                Padding="26,16">
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Right"
+                        Spacing="10">
+
+                <Button Classes="secondary"
+                        Content="Cancel"
+                        Click="Cancel_Click"
+                        MinWidth="100"/>
+
+                <Button Classes="primary"
+                        Command="{Binding ConfirmBookingCommand}"
+                        MinWidth="170">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <TextBlock Text="Review booking"
+                                   VerticalAlignment="Center"/>
+                        <TextBlock Text="→"
+                                   FontSize="16"
+                                   VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+
+            </StackPanel>
         </Border>
-        <TextBlock x:Name="ValidationText" Foreground="#B91C1C" FontSize="12"
-                   TextWrapping="Wrap" IsVisible="False"/>
-      </StackPanel>
-    </ScrollViewer>
 
-    <Border Grid.Row="2" Background="White" BorderBrush="#E2E8F0" BorderThickness="0,1,0,0" Padding="26,16">
-      <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="10">
-        <Button Classes="secondary" Content="Cancel" Click="Cancel_Click" MinWidth="100"/>
-        <Button Classes="primary" Click="ConfirmBooking_Click" MinWidth="170">
-          <StackPanel Orientation="Horizontal" Spacing="8">
-            <TextBlock Text="Review booking" VerticalAlignment="Center"/>
-            <TextBlock Text="→" FontSize="16" VerticalAlignment="Center"/>
-          </StackPanel>
-        </Button>
-      </StackPanel>
-    </Border>
-  </Grid>
+    </Grid>
 </Window>
