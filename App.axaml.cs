@@ -28,9 +28,7 @@ public partial class App : Application
         services.AddTransient<NewBookingWindow>();
 
         // Dialog services
-        services.AddSingleton<BookingDialogService>();
-        services.AddSingleton<IBookingDialogService>(sp => sp.GetRequiredService<BookingDialogService>());
-
+        services.AddSingleton<IBookingDialogService, BookingDialogService>();
         services.AddSingleton<INewBookingWindowService, NewBookingWindowService>();
 
         Services = services.BuildServiceProvider();

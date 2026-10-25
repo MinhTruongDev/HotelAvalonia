@@ -10,14 +10,13 @@ public partial class NewBookingWindow : Window
 {
     public NewBookingWindow(
         NewBookingViewModel viewModel,
-        BookingDialogService dialogService)
+        IBookingDialogService dialogService)
     {
         InitializeComponent();
 
         dialogService.SetOwner(this);
 
-        viewModel.BookingConfirmed +=
-            draft => Close(draft);
+        viewModel.BookingConfirmed += draft => Close(draft);
 
         DataContext = viewModel;
     }
