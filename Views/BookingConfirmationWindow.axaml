@@ -1,0 +1,68 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="HotelAvalonia.BookingConfirmationWindow"
+        Title="Confirm Booking"
+        Width="520" Height="570" MinWidth="480" MinHeight="520"
+        WindowStartupLocation="CenterOwner"
+        CanResize="False"
+        Background="#F8FAFC">
+  <Grid RowDefinitions="Auto,*,Auto">
+    <StackPanel Grid.Row="0" HorizontalAlignment="Center" Margin="28,28,28,18" Spacing="10">
+      <Border Width="58" Height="58" CornerRadius="29" Background="#DBEAFE" HorizontalAlignment="Center">
+        <TextBlock Text="?" FontSize="28" FontWeight="Bold" Foreground="#1D4ED8"
+                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+      </Border>
+      <TextBlock Text="Confirm this booking?" FontSize="22" FontWeight="Bold" Foreground="#0F172A"
+                 HorizontalAlignment="Center"/>
+      <TextBlock Text="Please review the reservation details before continuing."
+                 FontSize="12" Foreground="#64748B" TextAlignment="Center" TextWrapping="Wrap"/>
+    </StackPanel>
+
+    <Border Grid.Row="1" Margin="26,0" Background="White" BorderBrush="#E2E8F0"
+            BorderThickness="1" CornerRadius="12" Padding="20">
+      <StackPanel Spacing="15">
+        <Grid ColumnDefinitions="*,Auto">
+          <TextBlock Text="GUEST" FontSize="10" FontWeight="Bold" Foreground="#64748B"/>
+          <TextBlock x:Name="GuestValue" Grid.Column="1" Text="Guest name" FontSize="12"
+                     FontWeight="SemiBold" Foreground="#0F172A"/>
+        </Grid>
+        <Grid ColumnDefinitions="*,Auto">
+          <TextBlock Text="ROOM" FontSize="10" FontWeight="Bold" Foreground="#64748B"/>
+          <TextBlock x:Name="RoomValue" Grid.Column="1" Text="Room" FontSize="12"
+                     FontWeight="SemiBold" Foreground="#0F172A"/>
+        </Grid>
+        <Grid ColumnDefinitions="*,Auto">
+          <TextBlock Text="CHECK-IN" FontSize="10" FontWeight="Bold" Foreground="#64748B"/>
+          <TextBlock x:Name="CheckInValue" Grid.Column="1" Text="Date" FontSize="12" Foreground="#334155"/>
+        </Grid>
+        <Grid ColumnDefinitions="*,Auto">
+          <TextBlock Text="CHECK-OUT" FontSize="10" FontWeight="Bold" Foreground="#64748B"/>
+          <TextBlock x:Name="CheckOutValue" Grid.Column="1" Text="Date" FontSize="12" Foreground="#334155"/>
+        </Grid>
+        <Grid ColumnDefinitions="*,Auto">
+          <TextBlock Text="GUESTS / NIGHTS" FontSize="10" FontWeight="Bold" Foreground="#64748B"/>
+          <TextBlock x:Name="GuestsNightsValue" Grid.Column="1" Text="2 guests · 2 nights" FontSize="12" Foreground="#334155"/>
+        </Grid>
+        <Border Height="1" Background="#E2E8F0"/>
+        <Grid ColumnDefinitions="*,Auto">
+          <StackPanel Spacing="3">
+            <TextBlock Text="TOTAL AMOUNT" FontSize="10" FontWeight="Bold" Foreground="#64748B"/>
+            <TextBlock Text="Mock estimate · no payment processed" FontSize="10" Foreground="#94A3B8"/>
+          </StackPanel>
+          <TextBlock x:Name="TotalValue" Grid.Column="1" Text="₫1,600,000" FontSize="20"
+                     FontWeight="Bold" Foreground="#1D4ED8" VerticalAlignment="Center"/>
+        </Grid>
+      </StackPanel>
+    </Border>
+
+    <Border Grid.Row="2" Background="White" BorderBrush="#E2E8F0" BorderThickness="0,1,0,0"
+            Padding="26,17" Margin="0,20,0,0">
+      <Grid ColumnDefinitions="*,Auto,Auto" ColumnSpacing="10">
+        <TextBlock Text="You can go back to edit these details." Foreground="#64748B" FontSize="11"
+                   VerticalAlignment="Center" TextWrapping="Wrap"/>
+        <Button Grid.Column="1" Classes="secondary" Content="Go back" MinWidth="90" Click="GoBack_Click"/>
+        <Button Grid.Column="2" Classes="primary" Content="Confirm" MinWidth="110" Click="Confirm_Click"/>
+      </Grid>
+    </Border>
+  </Grid>
+</Window>
